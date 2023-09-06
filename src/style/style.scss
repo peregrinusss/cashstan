@@ -1,0 +1,541 @@
+@import "normalize.css";
+@import "_breakpoint.scss";
+@import "_disable-mob-hover.scss";
+
+@mixin darkmode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+@mixin lightmode {
+  @media (prefers-color-scheme: light) {
+    @content;
+  }
+}
+
+html {
+  --cursor-color: #000;
+
+  @include darkmode() {
+    --cursor-color: #fff
+  }
+}
+
+
+
+$red-main: #DC4533;
+$blue-light: #292D36;
+$blue-dark: #033E6B;
+$blue-gray: #25567B;
+$blue-white: #346B89;
+$black: #191B21;
+
+
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+body {
+  background: #fff;
+  min-width: 320px;
+
+  @include darkmode() {
+    background: $black;
+  }
+}
+
+
+.cat {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 50px 10px;
+
+  &__items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-top: 40px;
+  }
+
+  &__wrap {
+    background: #000;
+    border-radius: 20px;
+    padding: 10px;
+  }
+
+  &__no {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+    margin: 0 auto;
+    width: fit-content;
+  
+    @include darkmode() {
+      color: #fff;
+    }
+  }
+
+  &__sum {
+    background: linear-gradient(71deg, #ffffff, #8ca5ff);
+    background-size: 200% 200%;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 6px 6px 15px 1px #0000002e;
+    animation: gradAnimation 5s ease infinite;
+
+    @include darkmode() {
+      background: linear-gradient(71deg, #10205c, #6b8bff);
+      background-size: 200% 200%;
+      animation: gradAnimation 8s ease infinite;
+    }
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 120%;
+    color: #000;
+    margin-bottom: -10px;
+    position: relative;
+    width: fit-content;
+    text-transform: uppercase;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+
+    & svg {
+      width: 40px;
+      height: 40px;
+
+      & path {
+        &:first-child {
+          fill: #000;
+
+          @include darkmode() {
+            fill: #fff;
+          }
+        }
+      }
+    }
+
+    @include darkmode() {
+      color: #fff;
+    }
+  }
+
+  &__date {
+    border: none;
+    border-radius: 20px;;
+    width: 140px;
+    display: flex;
+    justify-content: center;
+    background: #cdcdd9;
+    color: #000;
+    padding: 14px 10px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    justify-content: center;
+    margin-top: 20px;
+    outline: none;
+    cursor: pointer;
+
+    @include darkmode() {
+      background: $blue-light;
+      color: #fff;
+    }
+  }
+
+  &__item {
+    background: #f0f2f4;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 6px 6px 15px 1px #0000002e;
+
+    @include darkmode() {
+      background: $blue-light;
+    }
+
+    @include width-768 {
+      padding: 16px;
+    }
+  }
+
+  &__person {
+    font-size: 32px;
+    margin: 0;
+    font-weight: 700;
+    line-height: 120%;
+    position: relative;
+    width: fit-content;
+    margin-bottom: 10px;
+    color: #000;
+
+    @include darkmode() {
+      color: #F6F7F9;
+    }
+
+    @include width-768 {
+      font-size: 30px;
+    }
+  }
+
+  &__ul {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  &__li {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 40px 1fr auto;
+    gap: 30px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 10px;
+
+    @include darkmode() {
+      background: #4f5a6f;
+    }
+
+    @include width-560 {
+      grid-template-columns: 40px 1fr;
+      grid-template-rows: auto auto;
+      gap: 14px;
+    }
+
+    &-super {
+      background: linear-gradient(71deg, #ffffff, #8ca5ff);
+      background-size: 200% 200%;
+      display: grid;
+      align-items: center;
+      grid-template-columns: 40px 1fr auto;
+      gap: 30px;
+      border-radius: 20px;
+      padding: 10px;
+      color: #fff !important;
+      animation: gradAnimation 5s ease infinite;
+
+      @include darkmode() {
+        background: linear-gradient(71deg, #10205c, #6b8bff);
+        background-size: 200% 200%;
+        animation: gradAnimation 8s ease infinite;
+      }
+  
+      @include width-560 {
+        grid-template-columns: 40px 1fr;
+        grid-template-rows: auto auto;
+        gap: 14px;
+      }
+    }
+  }
+
+  &__icon { 
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #000;
+
+    @include darkmode() {
+      background: #e4e4e4;
+    }
+
+    & img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__search {
+    display: block !important;
+    outline: none;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 300px;
+    z-index: 0 !important;
+
+    &:before {
+      width: 100%;
+    }
+  }
+
+  &__perc {
+    display: inline-block;
+    width: 47px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+
+    @include darkmode() {
+      color: #F6F7F9;
+    }
+    
+    @include width-768 {
+      font-size: 14px;
+    }
+  }
+
+  &__desc {
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 10px;
+    color: #000;
+
+    @include darkmode() {
+      color: #F6F7F9;
+    }
+
+    @include width-768 {
+      font-size: 14px;
+      margin-left: 2px;
+    }
+  }
+
+  &__btn {
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    background: #2b313b;
+    color: #F6F7F9;
+    border-radius: 16px;
+    padding: 12px 20px;
+    transition: all .4s;
+    cursor: pointer;
+
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #383e48;
+      border-radius: 16px;
+      z-index: -2;
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background-color: darken(#383e48, 8%);
+      transition: all .4s;
+      border-radius: 16px;
+      z-index: -1;
+    }
+    &:hover {
+      color: #fff;
+      &:before {
+        width: 100%;
+      }
+    }
+
+    @include width-560 {
+      grid-column: span 2;
+    }
+  }
+}
+
+@keyframes gradAnimation { 
+  0%{background-position:10% 0%}
+  50%{background-position:91% 100%}
+  100%{background-position:10% 0%}
+}
+
+.graph-modal {
+
+  &__container {
+    background: $blue-light;
+    border-radius: 20px;
+    padding: 30px;
+  }
+
+  &__close {
+    // background-image: url('./icons/close.svg');
+  }
+
+  &__content {
+  }
+}
+.info {
+
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  &__item {
+    background: #3b4352;
+    padding: 10px;
+    border-radius: 20px;
+  }
+
+  &__name {
+    font-size: 30px;
+    font-weight: 600;
+    color: #4185f1;
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 130%;
+    color: #a0abbc;
+  }
+
+  &__desc {
+    font-size: 16px;
+    font-weight: 400;
+    color: #F6F7F9;
+    margin-top: 6px;
+  }
+}
+
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #5E83E3;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+.spinner {
+  width: 80px;
+  height: 40px;
+  margin: 0 auto;
+  display: block;
+  margin-top: 10px;
+}
+
+.datepicker {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.react-datepicker {
+  border: none;
+  box-shadow: 6px 6px 15px 1px rgba(0, 0, 0, 0.1803921569);
+  @include darkmode() {
+    background: #2A2D35;
+  }
+}
+
+.react-datepicker__month .react-datepicker__month-text, .react-datepicker__month .react-datepicker__quarter-text {
+  padding: 6px 0;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 10px;
+  border: 1px solid transparent;
+
+  @include darkmode() {
+    color: #fff;
+  }
+}
+
+.react-datepicker__day:hover, .react-datepicker__month-text:hover, .react-datepicker__quarter-text:hover, .react-datepicker__year-text:hover {
+  background: #C1CBFB;
+  
+  @include darkmode() {
+    background: #6278DC;
+  }
+}
+
+.react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected, .react-datepicker__quarter-text--keyboard-selected, .react-datepicker__year-text--keyboard-selected {
+  background: #C1CBFB;
+  
+  @include darkmode() {
+    background: #6278DC;
+    color: #fff;
+  }
+}
+
+.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::before {
+  display: none;
+}
+
+.react-datepicker__header {
+  border-bottom: none;
+  background: #edf0f1;
+
+  @include darkmode() {
+    background: #4f5a6f;
+    color: #fff;
+  }
+}
+
+.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::before, .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::after {
+  border-bottom-color: #edf0f1;
+  
+  @include darkmode() {
+    border-bottom-color: #4f5a6f;
+  }
+}
