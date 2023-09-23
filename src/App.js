@@ -1,19 +1,12 @@
-import React, { useEffect, useState, forwardRef, useMemo } from "react";
-import AnimatedCursor from "react-animated-cursor";
+import { useEffect, useState, useMemo } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import "./style/style.scss";
-import DatePicker from "react-datepicker";
-import { registerLocale } from "react-datepicker";
 import CatItems from "./components/CatItems";
-import { ru } from "date-fns/locale";
 import CatFilter from "./components/CatFilter";
-
-registerLocale("ru", ru);
 
 function App() {
   const [cashbackData, setCashbackData] = useState({}); // cashback
   const [infoLoading, setInfoLoading] = useState(false); // cashback loading
-  const [startDate, setStartDate] = useState(new Date()); // datepicker
   const [isEmpty, setIsEmpty] = useState(false); // is empty data
   const [filter, setFilter] = useState({ query: "" }); // filter cashback
 
@@ -23,8 +16,8 @@ function App() {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data);
       setCashbackData(data);
+      console.log(data)
       setIsEmpty(Object.keys(data).length === 0);
       setInfoLoading(false);
     } catch (error) {
@@ -43,19 +36,31 @@ function App() {
   };
 
   const searchedCashback = useMemo(() => {
-    return Object.keys(cashbackData).reduce((result, key) => {
-      const filteredItems = cashbackData[key].filter((item) =>
-        item.category.name.toLowerCase().includes(filter.query.toLowerCase())
-      );
+    const result = {};
+
+    Object.keys(cashbackData).forEach((key) => {
+      const cashbackList = cashbackData[key].cashbacks;
+
+      const filteredItems = cashbackList.filter((item) => {
+        const lowercaseQuery = filter.query.toLowerCase();
+        const categoryData = item.category.name.toLowerCase();
+
+        return categoryData.includes(lowercaseQuery);
+      });
+
       if (filteredItems.length > 0) {
-        result[key] = filteredItems;
-        setIsEmpty(false);
-      } else {
-        setIsEmpty(true);
+        result[key] = {
+          cashbacks: filteredItems,
+          cards: cashbackData[key].cards || [],
+        };
       }
-      return result;
-    }, {});
+    });
+
+    setIsEmpty(Object.keys(result).length === 0);
+
+    return result;
   }, [filter.query, cashbackData]);
+
   // -------------- /functions ----------------
 
   // set current month and data
@@ -66,36 +71,205 @@ function App() {
     fetchCashback(apiUrl);
   }, []);
 
-  // custom input datepicker
-  const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-    <button className="cat__btn cat__date" onClick={onClick} ref={ref}>
-      {value}
-    </button>
-  ));
-
-  // change data listener for datepicker
-  const handleDateChange = (date) => {
-    setStartDate(date);
-    const apiUrl = generateUrl(date);
-    fetchCashback(apiUrl);
-  };
-
   return (
     <div className="cat">
-      <AnimatedCursor
-        innerSize={8}
-        outerSize={35}
-        innerScale={1}
-        outerScale={2}
-        outerAlpha={0}
-        hasBlendMode={true}
-        innerStyle={{
-          backgroundColor: "var(--cursor-color)",
-        }}
-        outerStyle={{
-          border: "3px solid var(--cursor-color)",
-        }}
-      />
+      <div id="bg-wrap">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient
+              id="Gradient1"
+              cx="50%"
+              cy="50%"
+              fx="0.441602%"
+              fy="50%"
+              r=".5"
+            >
+              <animate
+                attributeName="fx"
+                dur="190.4s"
+                values="0%;3%;0%"
+                repeatCount="indefinite"
+              ></animate>
+              <stop offset="0%" stopColor="rgba(255, 0, 255, 1)"></stop>
+              <stop offset="100%" stopColor="rgba(255, 0, 255, 0)"></stop>
+            </radialGradient>
+            <radialGradient
+              id="Gradient2"
+              cx="50%"
+              cy="50%"
+              fx="2.68147%"
+              fy="50%"
+              r=".5"
+            >
+              <animate
+                attributeName="fx"
+                dur="134s"
+                values="0%;3%;0%"
+                repeatCount="indefinite"
+              ></animate>
+              <stop offset="0%" stopColor="rgba(255, 255, 0, 1)"></stop>
+              <stop offset="100%" stopColor="rgba(255, 255, 0, 0)"></stop>
+            </radialGradient>
+            <radialGradient
+              id="Gradient3"
+              cx="50%"
+              cy="50%"
+              fx="0.836536%"
+              fy="50%"
+              r=".5"
+            >
+              <animate
+                attributeName="fx"
+                dur="121.6s"
+                values="0%;3%;0%"
+                repeatCount="indefinite"
+              ></animate>
+              <stop offset="0%" stopColor="rgba(0, 255, 255, 1)"></stop>
+              <stop offset="100%" stopColor="rgba(0, 255, 255, 0)"></stop>
+            </radialGradient>
+            <radialGradient
+              id="Gradient4"
+              cx="50%"
+              cy="50%"
+              fx="4.56417%"
+              fy="50%"
+              r=".5"
+            >
+              <animate
+                attributeName="fx"
+                dur="128.8s"
+                values="0%;5%;0%"
+                repeatCount="indefinite"
+              ></animate>
+              <stop offset="0%" stopColor="rgba(0, 255, 0, 1)"></stop>
+              <stop offset="100%" stopColor="rgba(0, 255, 0, 0)"></stop>
+            </radialGradient>
+            <radialGradient
+              id="Gradient5"
+              cx="50%"
+              cy="50%"
+              fx="2.65405%"
+              fy="50%"
+              r=".5"
+            >
+              <animate
+                attributeName="fx"
+                dur="137.2s"
+                values="0%;5%;0%"
+                repeatCount="indefinite"
+              ></animate>
+              <stop offset="0%" stopColor="rgba(0,0,255, 1)"></stop>
+              <stop offset="100%" stopColor="rgba(0,0,255, 0)"></stop>
+            </radialGradient>
+            <radialGradient
+              id="Gradient6"
+              cx="50%"
+              cy="50%"
+              fx="0.981338%"
+              fy="50%"
+              r=".5"
+            >
+              <animate
+                attributeName="fx"
+                dur="142.8s"
+                values="0%;5%;0%"
+                repeatCount="indefinite"
+              ></animate>
+              <stop offset="0%" stopColor="rgba(255,0,0, 1)"></stop>
+              <stop offset="100%" stopColor="rgba(255,0,0, 0)"></stop>
+            </radialGradient>
+          </defs>
+
+          <rect
+            x="13.744%"
+            y="1.18473%"
+            width="100%"
+            height="100%"
+            fill="url(#Gradient1)"
+            transform="rotate(334.41 50 50)"
+          >
+            <animate
+              attributeName="x"
+              dur="100.8s"
+              values="25%;0%;25%"
+              repeatCount="indefinite"
+            ></animate>
+            <animate
+              attributeName="y"
+              dur="117.6s"
+              values="0%;25%;0%"
+              repeatCount="indefinite"
+            ></animate>
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="0 50 50"
+              to="360 50 50"
+              dur="39.2s"
+              repeatCount="indefinite"
+            ></animateTransform>
+          </rect>
+          <rect
+            x="-2.17916%"
+            y="35.4267%"
+            width="100%"
+            height="100%"
+            fill="url(#Gradient2)"
+            transform="rotate(255.072 50 50)"
+          >
+            <animate
+              attributeName="x"
+              dur="128.8s"
+              values="-25%;0%;-25%"
+              repeatCount="indefinite"
+            ></animate>
+            <animate
+              attributeName="y"
+              dur="142.4s"
+              values="0%;50%;0%"
+              repeatCount="indefinite"
+            ></animate>
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="0 50 50"
+              to="360 50 50"
+              dur="57.6s"
+              repeatCount="indefinite"
+            ></animateTransform>
+          </rect>
+          <rect
+            x="9.00483%"
+            y="14.5733%"
+            width="100%"
+            height="100%"
+            fill="url(#Gradient3)"
+            transform="rotate(139.903 50 50)"
+          >
+            <animate
+              attributeName="x"
+              dur="140s"
+              values="0%;25%;0%"
+              repeatCount="indefinite"
+            ></animate>
+            <animate
+              attributeName="y"
+              dur="67.2s"
+              values="0%;25%;0%"
+              repeatCount="indefinite"
+            ></animate>
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="360 50 50"
+              to="0 50 50"
+              dur="43.2s"
+              repeatCount="indefinite"
+            ></animateTransform>
+          </rect>
+        </svg>
+      </div>
+
       <h1 className="cat__title">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -114,21 +288,12 @@ function App() {
         </svg>
         cashbacks
       </h1>
-      <DatePicker
-        wrapperClassName="datepicker"
-        selected={startDate}
-        customInput={<ExampleCustomInput />}
-        onChange={handleDateChange}
-        dateFormat="MMM yyyy"
-        showMonthYearPicker
-        locale="ru"
-      />
-      <CatFilter filter={filter} setFilter={setFilter} />
+      <CatFilter filter={filter} setFilter={setFilter} generateUrl={generateUrl} fetchCashback={fetchCashback} />
       <CatItems
-          data={searchedCashback}
-          loading={infoLoading}
-          isEmpty={isEmpty}
-        />
+        data={searchedCashback}
+        loading={infoLoading}
+        isEmpty={isEmpty}
+      />
     </div>
   );
 }
