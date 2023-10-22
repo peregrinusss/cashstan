@@ -24,7 +24,7 @@ html {
 
 
 
-$red-main: #DC4533;
+$logo-blue: #5DB6AC;
 $blue-light: #292D36;
 $blue-dark: #033E6B;
 $blue-gray: #25567B;
@@ -82,17 +82,23 @@ body {
   }
 
   &__sum {
-    background: linear-gradient(71deg, #ffffff, #8ca5ff);
+    background: linear-gradient(71deg, rgb(30, 77, 98), #5DB6AC);
     background-size: 200% 200%;
     border-radius: 20px;
     padding: 30px;
     box-shadow: 6px 6px 15px 1px #0000002e;
-    animation: gradAnimation 5s ease infinite;
+    animation: gradAnimation 8s ease infinite;
 
-    @include darkmode() {
-      background: linear-gradient(71deg, #10205c, #6b8bff);
-      background-size: 200% 200%;
-      animation: gradAnimation 8s ease infinite;
+    & .cat__person {
+      color: #fff;
+    }
+
+    & .cat__li-super {
+      background: #fff;
+
+      @include darkmode() {
+        background: #4f5a6f;
+      }
     }
 
     @include width-768 {
@@ -114,18 +120,49 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    letter-spacing: 3px;
 
     & svg {
       width: 40px;
       height: 40px;
 
-      & path {
-        &:first-child {
-          fill: #333333;
+      & circle {
+        stroke: #333333;
+        fill: #333333;
 
-          @include darkmode() {
-            fill: #fff;
-          }
+        @include darkmode() {
+          stroke: #fff;
+          fill: #fff;
+        }
+
+        &.filled {
+          stroke: $logo-blue !important;
+          fill: $logo-blue !important;
+        }
+      }
+
+      & line {
+        stroke: #333333;
+
+        @include darkmode() {
+          stroke: #fff;
+        }
+
+        &.filled {
+          stroke: $logo-blue !important;
+          fill: $logo-blue !important;
+        }
+      }
+
+      & path {
+        stroke: #333333;
+
+        @include darkmode() {
+          stroke: #fff;
+        }
+
+        &.filled {
+          stroke: $logo-blue !important;
         }
       }
     }
@@ -138,7 +175,7 @@ body {
   &__date {
     border: none;
     border-radius: 20px;;
-    width: 110px;
+    width: 120px;
     display: flex;
     justify-content: center;
     background: #cdcdd9;
@@ -187,13 +224,22 @@ body {
   }
 
   &-card {
-    background: #000;
+    // background: #000;
     padding: 4px;
     border-radius: 6px;
     width: 46px;
     height: 26px;
     position: relative;
     box-shadow: 2px 2px 6px 1px #00000047;;
+    overflow: hidden;
+
+    --s: 150px; /* control the size */
+    --_g: #0000 90deg,#046D8B 0;
+    background:
+      conic-gradient(from 116.56deg at calc(100%/3) 0   ,var(--_g)),
+      conic-gradient(from -63.44deg at calc(200%/3) 100%,var(--_g))
+      #2FB8AC;
+    background-size: var(--s) var(--s);
 
     &__type {
       font-size: 8px;
@@ -212,6 +258,7 @@ body {
       position: absolute;
       top: 4px;
       right: 4px;
+      z-index: 1;
     }
   }
 
@@ -244,9 +291,9 @@ body {
     align-items: center;
     grid-template-columns: 40px 1fr auto;
     gap: 30px;
-    background: #fff;
     border-radius: 20px;
     padding: 10px;
+    background: #fff;
 
     @include darkmode() {
       background: #4f5a6f;
@@ -260,21 +307,24 @@ body {
     }
 
     &-super {
-      background: linear-gradient(71deg, #ffffff, #8ca5ff);
+      background: linear-gradient(71deg, rgb(30, 77, 98), #5DB6AC);
       background-size: 200% 200%;
       display: grid;
       align-items: center;
       grid-template-columns: 40px 1fr auto;
-      gap: 30px;
+      column-gap: 30px;
+      row-gap: 10px;
       border-radius: 20px;
       padding: 10px;
       color: #fff !important;
-      animation: gradAnimation 5s ease infinite;
+      animation: gradAnimation 8s ease infinite;
 
-      @include darkmode() {
-        background: linear-gradient(71deg, #10205c, #6b8bff);
-        background-size: 200% 200%;
-        animation: gradAnimation 8s ease infinite;
+      & .cat__perc {
+        color: #fff;
+      }
+
+      & .cat__desc {
+        color: #fff;
       }
   
       @include width-560 {
@@ -286,16 +336,31 @@ body {
     }
   }
 
+  &__sublist {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 10px;
+    opacity: 0.4;
+
+    @include darkmode {
+      background: #4f5a6f;
+    }
+  }
+
+  &__subli {
+    // opacity: 0.4;
+    background: none;
+  }
+
   &__icon { 
     width: 40px;
     height: 40px;
     border-radius: 10px;
     overflow: hidden;
-    background-color: #333;
-
-    @include darkmode() {
-      background: #e4e4e4;
-    }
 
     & img {
       width: 100%;
@@ -305,6 +370,7 @@ body {
 
   &__name {
     display: flex;
+    align-items: center;
   }
 
   &__perc {
@@ -319,7 +385,7 @@ body {
     }
     
     @include width-768 {
-      font-size: 14px;
+      font-size: 16px;
       width: 40px;
     }
   }
@@ -462,6 +528,24 @@ body {
       gap: 10px;
     }
   }
+
+  &__end {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+
+    &-date {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ee3939;
+    }
+  }
+
+  &__ended {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
 
 @keyframes gradAnimation { 
@@ -535,7 +619,7 @@ body {
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: #5E83E3;
+  background:#5DB6AC;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .lds-ellipsis div:nth-child(1) {
@@ -665,5 +749,57 @@ body {
   & svg {
     height: 100%;
     width: 100%;
+  }
+}
+
+.accordion {
+
+  & h3 {
+    margin-top: -14px !important;
+  }
+
+  &.szh-accordion__item--expanded {
+
+    & button {
+
+      & svg {
+        transform: rotate(180deg);
+        transition: all 0.3s;
+      }
+    }
+  }
+
+  & .szh-accordion__item-content {
+    transition: height 0.4s cubic-bezier(0, 0, 0, 1);
+  }
+
+  & button {
+    background: none;
+    border-radius: 50%;
+    border: none;
+    padding: 4px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0 auto;
+
+    outline: none;
+
+    & svg {
+      width: 100%;
+      height: 100%;
+      transition: all 0.3s;
+      
+      & path {
+        fill: #333333;
+
+        @include darkmode {
+          fill: #fff;
+        }
+      }
+    }
   }
 }

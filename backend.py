@@ -10,6 +10,8 @@ from db import Cashback, Category, Beneficiary, Card
 app = FastAPI(debug=True)
 
 API_PATH = '/api'
+CASHBACKS = 'cashbacks'
+CARDS = 'cards'
 
 
 @app.get(API_PATH + '/cashbacks')
@@ -34,6 +36,7 @@ async def cashbacks_endpoint(date: str):
     cashbacks_json = {}
     for cashback in cashbacks_query:
         entity = {
+            "id": cashback.id,
             "date": cashback.date,
             "category": {
                 "name": cashback.category_id.name,
@@ -42,7 +45,7 @@ async def cashbacks_endpoint(date: str):
                 "mcc": cashback.category_id.mcc
             },
             # "beneficiary_full_name": cashback.beneficiary_id.full_name if cashback.beneficiary_id_id else None,
-            "percent": cashback.percent
+            "percent": cashback.percent,
         }
         if cashback.start_date:
             entity["start_date"] = cashback.start_date
@@ -55,14 +58,19 @@ async def cashbacks_endpoint(date: str):
 
         if not cashback.beneficiary_id_id:
             if (unsorted := "unsorted") not in cashbacks_json:
-                cashbacks_json[unsorted] = []
-            cashbacks_json[unsorted].append(entity)
+                cashbacks_json[unsorted] = {CASHBACKS: []}
+            cashbacks_json[unsorted][CASHBACKS].append(entity)
         else:
             if (name := cashback.beneficiary_id.full_name) not in cashbacks_json:
-                cashbacks_json[name] = []
-            cashbacks_json[name].append(entity)
-
-        # cashbacks_json.append(entity)
+                cashbacks_json[name] = {
+                    CASHBACKS: [],
+                    CARDS: {
+                        card.number: {
+                            "type": card.type,
+                            "icon": card.icon
+                        } for card in cashback.beneficiary_id.cards}}
+            if cashback.id not in [_cashback['id'] for _cashback in cashbacks_json[name][CASHBACKS]]:
+                cashbacks_json[name][CASHBACKS].append(entity)
 
     return cashbacks_json
 

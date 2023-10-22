@@ -2,6 +2,8 @@ import React from "react";
 import CatPerson from "./CatPerson";
 
 const CatItems = ({ data, loading, isEmpty}) => {
+  console.log(data)
+
   return (
     <div className="cat__items">
       {loading ? (

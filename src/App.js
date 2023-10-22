@@ -17,7 +17,6 @@ function App() {
       const response = await fetch(url);
       const data = await response.json();
       setCashbackData(data);
-      console.log(data)
       setIsEmpty(Object.keys(data).length === 0);
       setInfoLoading(false);
     } catch (error) {
@@ -30,7 +29,7 @@ function App() {
   const generateUrl = (date) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
-    const apiUrl = `https://cashbacks.squidass.com/api/cashbacks/${year}.${month}`;
+    const apiUrl = `https://abc-peregrinusss.squidass.com/api/cashbacks/${year}.${month}`;
 
     return apiUrl;
   };
@@ -273,22 +272,122 @@ function App() {
       <h1 className="cat__title">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="31"
-          height="48"
-          viewBox="0 0 31 48"
-          fill="none"
+          enableBackground="new 0 0 32 32"
+          version="1.1"
+          viewBox="0 0 32 32"
         >
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M10.9423 20.1962H19.4573L15.3985 7.16384H15.2393L10.9423 20.1962ZM20.8882 4.75813L29.9221 32.254H23.2371L21.2077 25.7177H9.11194L6.92331 32.254H0.636719L10.1168 4.75813C11.0362 2.09147 12.1076 0 15.5578 0C19.0076 0 20.0146 2.09992 20.8882 4.75813Z"
-            fill="#ffffff"
-          />
-          <path d="M0 41.0791V47.5751H30.6383V41.0791H0Z" fill="#EF3124" />
+          <g id="Layer_1" />
+          <g id="Layer_2">
+            <g>
+              <path
+                className="filled"
+                d="    M20,14L20,14c-1.1,0-2-0.9-2-2V8c0-1.1,0.9-2,2-2h0c1.1,0,2,0.9,2,2v4C22,13.1,21.1,14,20,14z"
+                fill="none"
+                stroke="#000000"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit="10"
+                strokeWidth="2"
+              />
+              <g>
+                <circle className="filled" cx="25.5" cy="6.5" r="1.5" />
+              </g>
+              <g>
+                <circle className="filled" cx="29.5" cy="13.5" r="1.5" />
+              </g>
+              <line
+                className="filled"
+                fill="none"
+                stroke="#000000"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="2"
+                x1="30"
+                x2="25"
+                y1="6"
+                y2="14"
+              />
+              <path
+                d="    M15,6H4C2.9,6,2,6.9,2,8v16c0,1.1,0.9,2,2,2h24c1.1,0,2-0.9,2-2v-7"
+                fill="none"
+                stroke="#000000"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="2"
+              />
+              <line
+                fill="none"
+                stroke="#000000"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="2"
+                x1="6"
+                x2="8"
+                y1="20"
+                y2="20"
+              />
+              <line
+                fill="none"
+                stroke="#000000"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="2"
+                x1="12"
+                x2="14"
+                y1="20"
+                y2="20"
+              />
+              <line
+                fill="none"
+                stroke="#000000"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="2"
+                x1="18"
+                x2="20"
+                y1="20"
+                y2="20"
+              />
+              <line
+                fill="none"
+                stroke="#000000"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="2"
+                x1="24"
+                x2="26"
+                y1="20"
+                y2="20"
+              />
+              <line
+                fill="none"
+                stroke="#000000"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="2"
+                x1="2"
+                x2="15"
+                y1="10"
+                y2="10"
+              />
+            </g>
+          </g>
         </svg>
-        cashbacks
+        cashback
       </h1>
-      <CatFilter filter={filter} setFilter={setFilter} generateUrl={generateUrl} fetchCashback={fetchCashback} />
+      <CatFilter
+        filter={filter}
+        setFilter={setFilter}
+        generateUrl={generateUrl}
+        fetchCashback={fetchCashback}
+      />
       <CatItems
         data={searchedCashback}
         loading={infoLoading}

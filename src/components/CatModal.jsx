@@ -1,6 +1,6 @@
 import React from "react";
 
-const CatModal = ({ active, setActive, desc, mcc }) => {
+const CatModal = ({ active, setActive, category, percent }) => {
   return (
     <div
       className={active ? "modal active" : "modal"}
@@ -15,22 +15,22 @@ const CatModal = ({ active, setActive, desc, mcc }) => {
         <div className="modal__content">
           <div className="modal__body">
             <h2 className="modal__name">
-              <span>1%</span> На все покупки
+              <span>{percent}%</span> {category.name}
             </h2>
 
-            {desc &&
+            {category.description &&
               <div className="modal__item">
                 <h3 className="modal__title">Описание</h3>
                 <div className="modal__desc">
-                  <p>{desc}</p>
+                  <p>{category.description}</p>
                 </div>
               </div>
             }
-            {mcc &&
+            {category.mcc &&
               <div className="modal__item">
                 <h3 className="modal__title">MCC коды</h3>
                 <div className="modal__desc">
-                  <p>{mcc}</p>
+                  <p>{category.mcc}</p>
                 </div>
               </div>
             }
