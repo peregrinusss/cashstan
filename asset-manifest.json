@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/cashstan/static/css/main.852210dd.css",
+    "main.js": "/cashstan/static/js/main.3465f1dd.js",
+    "index.html": "/cashstan/index.html",
+    "main.852210dd.css.map": "/cashstan/static/css/main.852210dd.css.map",
+    "main.3465f1dd.js.map": "/cashstan/static/js/main.3465f1dd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.852210dd.css",
+    "static/js/main.3465f1dd.js"
+  ]
+}
